@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs/PlanarGraphs.csproj": {}
+    "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs.csproj": {}
   },
   "projects": {
-    "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs/PlanarGraphs.csproj": {
+    "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs/PlanarGraphs.csproj",
+        "projectUniqueName": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs.csproj",
         "projectName": "PlanarGraphs",
-        "projectPath": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs/PlanarGraphs.csproj",
+        "projectPath": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs.csproj",
         "packagesPath": "/Users/alona/.nuget/packages/",
-        "outputPath": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs/obj/",
+        "outputPath": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/alona/.nuget/NuGet/NuGet.Config"
