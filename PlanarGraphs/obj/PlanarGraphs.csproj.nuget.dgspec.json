@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs.csproj": {}
+    "D:\\KSE\\ДММ\\GroupProject\\PlanarGraphs\\PlanarGraphs.csproj": {}
   },
   "projects": {
-    "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs.csproj": {
+    "D:\\KSE\\ДММ\\GroupProject\\PlanarGraphs\\PlanarGraphs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs.csproj",
+        "projectUniqueName": "D:\\KSE\\ДММ\\GroupProject\\PlanarGraphs\\PlanarGraphs.csproj",
         "projectName": "PlanarGraphs",
-        "projectPath": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/PlanarGraphs.csproj",
-        "packagesPath": "/Users/alona/.nuget/packages/",
-        "outputPath": "/Users/alona/Documents/ASD-term-2/anazarenko-aakhlamova-tmazko-discret-math-topic-14/PlanarGraphs/obj/",
+        "projectPath": "D:\\KSE\\ДММ\\GroupProject\\PlanarGraphs\\PlanarGraphs.csproj",
+        "packagesPath": "C:\\Users\\Таня\\.nuget\\packages\\",
+        "outputPath": "D:\\KSE\\ДММ\\GroupProject\\PlanarGraphs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/alona/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Таня\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
