@@ -1,4 +1,3 @@
-**/.idea/**
-**/PlanarGraphs/bin/**
-**/PlanarGraphs/obj/**
-**/PlanarGraphs/.idea/**
+PlanarGraphs/obj/
+PlanarGraphs/bin/
+.idea/
