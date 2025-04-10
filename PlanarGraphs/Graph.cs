@@ -49,22 +49,51 @@ public class Graph
         return uniqEdges.Count;
     }
 
-    public void GenerateGraph(int vCount)
+    public void GenerateGraph(int vCount, bool isNotPlanary=false)
     {
         Random rand = new Random();
         int[,] matrix = new int[vCount, vCount];
 
+        // for (int i = 0; i < vCount; i++)
+        // {
+        //     for (int j = 0; j < vCount; j++)
+        //     {
+        //         if(i==j)continue;
+        //         int randomBit = rand.Next(2);
+        //
+        //         if (j > i) break;
+        //         matrix[i, j] = randomBit;
+        //         matrix[j, i] = randomBit;
+        //     }
+        // }
+        
+        if (isNotPlanary && vCount >= 5)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = i + 1; j < 5; j++)
+                {
+                    matrix[i, j] = 1;
+                    matrix[j, i] = 1;
+                }
+            }
+        }
+        
         for (int i = 0; i < vCount; i++)
         {
             for (int j = 0; j < vCount; j++)
             {
-                int randomBit = rand.Next(2);
+                if (i == j || matrix[i, j] == 1) continue; 
 
-                if (j > i) break;
-                matrix[i, j] = randomBit;
-                matrix[j, i] = randomBit;
+                
+                if (rand.NextDouble() < 0.3) //probability 0.3 
+                {
+                    matrix[i, j] = 1;
+                    matrix[j, i] = 1;
+                }
             }
         }
+
 
         Matrix = matrix;
         GenerateListFromMatrix(vCount);
