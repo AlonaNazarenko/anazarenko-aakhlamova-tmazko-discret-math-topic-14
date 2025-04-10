@@ -4,7 +4,8 @@ public class Graph
 {
     public Dictionary<int, List<int>> AdjacencyList { get; set; } = new();
     public bool IsDirected { get; set; }
-
+    public int[,] Matrix{ get; set; }
+    public int VertexCount => AdjacencyList.Count;
     public Graph(bool isDirected = false)
     {
         IsDirected = isDirected;
@@ -53,6 +54,43 @@ public class Graph
         }
 
         return count;
+    }
+
+    public void GenerateGraph(int vCount)
+    {
+        Random rand = new Random();
+        int[,] matrix = new int[vCount, vCount];
+        
+        for (int i = 0; i < vCount; i++)
+        {
+            for (int j = 0; j < vCount; j++)
+            {
+                int randomBit = rand.Next(2);
+                if (!IsDirected)
+                {
+                    if (j > i) break;
+                    matrix[i, j] = randomBit;
+                    matrix[j, i] = randomBit;
+                }
+                else
+                {
+                    matrix[i, j] = randomBit;
+                }
+            }
+        }
+
+        Matrix = matrix;
+    }
+
+    public void GenerateListFromMatrix()
+    {
+        for (int i = 0; i < VertexCount; i++)
+        {
+            for (int j = 0; j < VertexCount; j++)
+            {
+                AddEdge(i + 1, j + 1);
+            }
+        }
     }
     
 }

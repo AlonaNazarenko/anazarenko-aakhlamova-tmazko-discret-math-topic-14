@@ -16,3 +16,8 @@ foreach (var v in vertexes)
     Console.WriteLine($"v: {v}");
 }
 Console.WriteLine($"edges: {graph.CountEdges()}");
+
+
+Graph graph2=new Graph();
+graph2.GenerateGraph(10);
+graph2.GenerateListFromMatrix();
