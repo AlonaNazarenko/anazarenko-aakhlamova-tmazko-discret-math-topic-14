@@ -2,29 +2,27 @@
 
 public class Graph
 {
-    public Dictionary<int, List<int>> AdjacencyList { get; set; } = new();
-    public bool IsDirected { get; set; }
-    public int[,] Matrix{ get; set; }
+    public Dictionary<int, HashSet<int>> AdjacencyList { get; set; } = new();
+    public int[,] Matrix { get; set; }
     public int VertexCount => AdjacencyList.Count;
-    public Graph(bool isDirected = false)
+
+    public Graph()
     {
-        IsDirected = isDirected;
     }
+
     public void AddEdge(int startV, int endV)
     {
         AddVertex(startV);
         AddVertex(endV);
         AdjacencyList[startV].Add(endV);
-        if (!IsDirected)
-        {
-            AdjacencyList[endV].Add(startV);
-        }
+
+        AdjacencyList[endV].Add(startV);
     }
 
     public void AddVertex(int v)
     {
         if (!AdjacencyList.ContainsKey(v))
-            AdjacencyList[v] = new List<int>();
+            AdjacencyList[v] = new HashSet<int>();
     }
 
     public List<int> GetVertices()
@@ -41,41 +39,30 @@ public class Graph
         {
             foreach (var endV in AdjacencyList[startV])
             {
-                string key = IsDirected
-                    ? $"{startV}->{endV}"
-                    : $"{Math.Min(startV, endV)}-{Math.Max(startV, endV)}";
+                string key = $"{Math.Min(startV, endV)}-{Math.Max(startV, endV)}";
 
-                if (!uniqEdges.Contains(key))
-                {
-                    uniqEdges.Add(key);
-                    count++;
-                }
+
+                uniqEdges.Add(key);
             }
         }
 
-        return count;
+        return uniqEdges.Count;
     }
 
     public void GenerateGraph(int vCount)
     {
         Random rand = new Random();
         int[,] matrix = new int[vCount, vCount];
-        
+
         for (int i = 0; i < vCount; i++)
         {
             for (int j = 0; j < vCount; j++)
             {
                 int randomBit = rand.Next(2);
-                if (!IsDirected)
-                {
-                    if (j > i) break;
-                    matrix[i, j] = randomBit;
-                    matrix[j, i] = randomBit;
-                }
-                else
-                {
-                    matrix[i, j] = randomBit;
-                }
+
+                if (j > i) break;
+                matrix[i, j] = randomBit;
+                matrix[j, i] = randomBit;
             }
         }
 
@@ -89,12 +76,12 @@ public class Graph
         {
             for (int j = 0; j < vCount; j++)
             {
-                if(Matrix[i,j]==1)
+                if (Matrix[i, j] == 1)
                     AddEdge(i + 1, j + 1);
             }
         }
 
-        AdjacencyList=AdjacencyList.OrderBy(v => v.Key).ToDictionary();
+        AdjacencyList = AdjacencyList.OrderBy(v => v.Key).ToDictionary();
     }
 
     public override string ToString()
