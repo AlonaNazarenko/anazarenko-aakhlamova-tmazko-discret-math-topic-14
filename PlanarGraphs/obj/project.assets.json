@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\KSE\\ДММ\\GroupProject\\PlanarGraphs\\PlanarGraphs.csproj",
+      "projectUniqueName": "D:\\KSE\\ДММ\\anazarenko-aakhlamova-tmazko-discret-math-topic-14\\PlanarGraphs\\PlanarGraphs.csproj",
       "projectName": "PlanarGraphs",
-      "projectPath": "D:\\KSE\\ДММ\\GroupProject\\PlanarGraphs\\PlanarGraphs.csproj",
+      "projectPath": "D:\\KSE\\ДММ\\anazarenko-aakhlamova-tmazko-discret-math-topic-14\\PlanarGraphs\\PlanarGraphs.csproj",
       "packagesPath": "C:\\Users\\Таня\\.nuget\\packages\\",
-      "outputPath": "D:\\KSE\\ДММ\\GroupProject\\PlanarGraphs\\obj\\",
+      "outputPath": "D:\\KSE\\ДММ\\anazarenko-aakhlamova-tmazko-discret-math-topic-14\\PlanarGraphs\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Таня\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\Таня\\.dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

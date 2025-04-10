@@ -80,17 +80,31 @@ public class Graph
         }
 
         Matrix = matrix;
+        GenerateListFromMatrix(vCount);
     }
 
-    public void GenerateListFromMatrix()
+    public void GenerateListFromMatrix(int vCount)
     {
-        for (int i = 0; i < VertexCount; i++)
+        for (int i = 0; i < vCount; i++)
         {
-            for (int j = 0; j < VertexCount; j++)
+            for (int j = 0; j < vCount; j++)
             {
-                AddEdge(i + 1, j + 1);
+                if(Matrix[i,j]==1)
+                    AddEdge(i + 1, j + 1);
             }
         }
+
+        AdjacencyList=AdjacencyList.OrderBy(v => v.Key).ToDictionary();
     }
-    
+
+    public override string ToString()
+    {
+        string res = "";
+        foreach (var v in AdjacencyList)
+        {
+            res += $"{v.Key} | {string.Join(", ", v.Value)}\n";
+        }
+
+        return res;
+    }
 }
