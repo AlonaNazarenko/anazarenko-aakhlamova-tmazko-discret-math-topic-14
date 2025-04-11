@@ -73,6 +73,7 @@ public class Graph
             {
                 for (int j = i + 1; j < 5; j++)
                 {
+                    if (i == j) continue;
                     matrix[i, j] = 1;
                     matrix[j, i] = 1;
                 }
