@@ -10,12 +10,47 @@ public class Graph
     {
     }
 
+    public Graph(int vCount, double density)
+    {
+        Matrix = new int[vCount, vCount];
+        Random random = new Random();
+
+        int maxEdges = vCount * (vCount - 1) / 2;
+        int requiredEdges = (int)(density * maxEdges);
+        
+        HashSet<(int, int)> edgeSet = new HashSet<(int, int)>();
+
+        while (edgeSet.Count < requiredEdges)
+        {
+            int u = random.Next(vCount)+1;
+            int v = random.Next(vCount)+1;
+
+            if (u == v)
+                continue; 
+
+            var edge = (Math.Min(u, v), Math.Max(u, v));
+
+            if (edgeSet.Add(edge))
+            {
+                AddEdge(u,v);
+
+            }
+
+
+        }
+        AdjacencyList = AdjacencyList.OrderBy(v => v.Key).ToDictionary();
+
+    }
+
+    public void GenerateMatrixFromList(int vCount)
+    {
+        
+    }
     public void AddEdge(int startV, int endV)
     {
         AddVertex(startV);
         AddVertex(endV);
         AdjacencyList[startV].Add(endV);
-
         AdjacencyList[endV].Add(startV);
     }
 
@@ -49,7 +84,7 @@ public class Graph
         return uniqEdges.Count;
     }
 
-    public void GenerateGraph(int vCount, bool isNotPlanary=false)
+    public void GenerateGraph(int vCount, bool isNotPlanary = false)
     {
         Random rand = new Random();
         int[,] matrix = new int[vCount, vCount];
@@ -66,7 +101,7 @@ public class Graph
         //         matrix[j, i] = randomBit;
         //     }
         // }
-        
+
         if (isNotPlanary && vCount >= 5)
         {
             for (int i = 0; i < 5; i++)
@@ -79,14 +114,14 @@ public class Graph
                 }
             }
         }
-        
+
         for (int i = 0; i < vCount; i++)
         {
             for (int j = 0; j < vCount; j++)
             {
-                if (i == j || matrix[i, j] == 1) continue; 
+                if (i == j || matrix[i, j] == 1) continue;
 
-                
+
                 if (rand.NextDouble() < 0.3) //probability 0.3 
                 {
                     matrix[i, j] = 1;
