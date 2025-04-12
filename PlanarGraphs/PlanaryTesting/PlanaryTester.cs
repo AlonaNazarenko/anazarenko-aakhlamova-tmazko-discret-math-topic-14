@@ -8,7 +8,7 @@ public class PlanaryTester
     private Dictionary<int, int> _dfsTree; 
     private Dictionary<int, int> _low;
     private Dictionary<int, int> _parent;
-    private List<(int, int)>[] _embedding; 
+    private Dictionary<int, List<(int, int)>> _embedding; 
     private Stack<(int, int)> _stack; 
     private HashSet<(int, int)> _visited; 
     private bool _conflict; 
@@ -24,7 +24,7 @@ public class PlanaryTester
         _dfsTree = new ();
         _low = new ();
         _parent = new ();
-        _embedding = new List<(int, int)>[_vertexCount];
+        _embedding = new ();
         _stack = new ();
         _visited = new ();
         _conflict = false;
@@ -32,8 +32,7 @@ public class PlanaryTester
     }
 
     public bool BoyerMyrvoldPlanarity()
-    {
-        if (_testingGraph.CountEdges() > 3 * _adjacencyList.Count - 6) return false; // цього не було в алгоритмі, але упростить нам задачу, тому хай буде :)
+    { 
         var components = GetConnectedComponents();
         foreach (var component in components)
         {
@@ -47,10 +46,7 @@ public class PlanaryTester
     {
         List<List<int>> components = new();
         Dictionary<int, bool> visited = new ();
-        foreach (var vertex in _allVertex)
-        {
-            visited[vertex] = false;
-        }
+        Utilites.FillDictionary(visited, _allVertex, false);
         foreach(int v in _allVertex)
         {
             if (!visited[v])
@@ -78,16 +74,16 @@ public class PlanaryTester
         Utilites.FillDictionary(_dfsTree, _allVertex, -1);
         Utilites.FillDictionary(_low, _allVertex, -1);
         Utilites.FillDictionary(_parent, _allVertex, -1);
-        
-        for (int i = 0; i < _vertexCount; i++)
-            _embedding[i] = new List<(int, int)>();
+
+        foreach (var v in _allVertex)
+            _embedding[v] = new List<(int, int)>();
         foreach (var v in vertices)
         {
             if (_dfsTree[v] == -1)
                 DFS(v);
         }
         _visited.Clear();
-        var postOrder = Enumerable.Range(0, _vertexCount)
+        var postOrder = _adjacencyList.Keys
             .Where(v => _dfsTree[v] != -1)
             .OrderByDescending(v => _dfsTree[v])
             .ToList();
@@ -105,7 +101,7 @@ public class PlanaryTester
     private void DFS(int v)
     {
         _dfsTree[v] = _dfsIndex;
-        _low[v] = _dfsIndex;
+        _low[v] = _parent[v];
         _dfsIndex++;
 
         foreach (var w in _adjacencyList[v])
@@ -114,16 +110,14 @@ public class PlanaryTester
             if (!_visited.Contains(edge))
             {
                 _visited.Add(edge);
-                if (_dfsTree[w] == -1) // Tree edge
+                if (_dfsTree[w] == -1) 
                 {
                     _parent[w] = v;
                     DFS(w);
-                    _low[v] = Math.Min(_low[v], _low[w]);
+                    _low[v] = _low[v] == -1? -1 :_dfsTree[_low[v]] > _dfsTree[w] ? w : _low[v];
                 }
-                else // Back edge
-                {
-                    _low[v] = Math.Min(_low[v], _dfsTree[w]);
-                }
+                else _low[v] = _dfsTree[_low[v]] > _dfsTree[w] ? w : _low[v] ;
+                
             }
         }
     }
