@@ -1,3 +1,5 @@
+using PlanarGraphs.PlanaryTesting;
+
 namespace PlanarGraphs;
 
 public class Utilites
@@ -6,5 +8,22 @@ public class Utilites
     {
         foreach (var vertex in what) 
             dic[vertex] = value;
+    }
+    
+    public static void FillDictionary(Dictionary<int, bool> dic, HashSet<int> what, bool value)
+    {
+        foreach (var vertex in what) 
+            dic[vertex] = value;
+    }
+    
+    public static void FillDictionary(Dictionary<int, int> dic, List<int> what, int value)
+    {
+        foreach (var vertex in what) 
+            dic[vertex] = value;
+    }
+
+    public static void PrintPlanarity(Graph graph)
+    {
+        Console.WriteLine(new PlanaryTester(graph).BoyerMyrvoldPlanarity());
     }
 }
