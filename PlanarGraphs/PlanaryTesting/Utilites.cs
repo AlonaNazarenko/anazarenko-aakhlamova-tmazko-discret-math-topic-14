@@ -1,3 +1,5 @@
+using PlanarGraphs.PlanaryTesting;
+
 namespace PlanarGraphs;
 
 public class Utilites
@@ -18,5 +20,10 @@ public class Utilites
     {
         foreach (var vertex in what) 
             dic[vertex] = value;
+    }
+
+    public static void PrintPlanarity(Graph graph)
+    {
+        Console.WriteLine(new PlanaryTester(graph).BoyerMyrvoldPlanarity());
     }
 }
