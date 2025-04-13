@@ -17,6 +17,11 @@ public class Graph
 
         int maxEdges = vCount * (vCount - 1) / 2;
         int requiredEdges = (int)(density * maxEdges);
+
+        for (int i = 1; i < vCount; i++)
+        {
+            AddVertex(i+1);
+        }
         
         HashSet<(int, int)> edgeSet = new HashSet<(int, int)>();
 
@@ -94,69 +99,32 @@ public class Graph
         return uniqEdges.Count;
     }
 
-    public void GenerateGraph(int vCount, bool isNotPlanary = false)
+   
+    
+
+    public void PrintMatrix()
     {
-        Random rand = new Random();
-        int[,] matrix = new int[vCount, vCount];
+        int maxLabelWidth = VertexCount.ToString().Length + 1; 
 
-        // for (int i = 0; i < vCount; i++)
-        // {
-        //     for (int j = 0; j < vCount; j++)
-        //     {
-        //         if(i==j)continue;
-        //         int randomBit = rand.Next(2);
-        //
-        //         if (j > i) break;
-        //         matrix[i, j] = randomBit;
-        //         matrix[j, i] = randomBit;
-        //     }
-        // }
-
-        if (isNotPlanary && vCount >= 5)
+        Console.Write(new string(' ', maxLabelWidth));
+        for (int i = 1; i <= VertexCount; i++)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = i + 1; j < 5; j++)
-                {
-                    if (i == j) continue;
-                    matrix[i, j] = 1;
-                    matrix[j, i] = 1;
-                }
-            }
+            Console.Write(i.ToString().PadLeft(maxLabelWidth));
         }
+        Console.WriteLine();
 
-        for (int i = 0; i < vCount; i++)
+        Console.WriteLine(new string('-', maxLabelWidth + VertexCount * maxLabelWidth));
+        
+        for (int i = 0; i < VertexCount; i++)
         {
-            for (int j = 0; j < vCount; j++)
+            Console.Write((i + 1).ToString().PadLeft(maxLabelWidth - 1) + "|");
+            for (int j = 0; j < VertexCount; j++)
             {
-                if (i == j || matrix[i, j] == 1) continue;
-
-
-                if (rand.NextDouble() < 0.3) 
-                {
-                    matrix[i, j] = 1;
-                    matrix[j, i] = 1;
-                }
+                Console.Write(Matrix[i, j].ToString().PadLeft(maxLabelWidth));
             }
+            Console.WriteLine();
         }
-
-
-        Matrix = matrix;
-        GenerateListFromMatrix(vCount);
-    }
-
-    public void GenerateListFromMatrix(int vCount)
-    {
-        for (int i = 0; i < vCount; i++)
-        {
-            for (int j = 0; j < vCount; j++)
-            {
-                if (Matrix[i, j] == 1)
-                    AddEdge(i + 1, j + 1);
-            }
-        }
-
-        AdjacencyList = AdjacencyList.OrderBy(v => v.Key).ToDictionary();
+    
     }
 
     public override string ToString()
