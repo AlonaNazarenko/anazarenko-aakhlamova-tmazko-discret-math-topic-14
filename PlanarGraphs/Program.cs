@@ -42,10 +42,13 @@ foreach (var v in vertexes)
     Console.WriteLine($"v: {v}");
 }
 Console.WriteLine($"edges: {graph.CountEdges()}");
-Console.WriteLine(new PlanaryTester(graph).BoyerMyrvoldPlanarity());
+new PlanaryTester(graph).BoyerMyrvoldPlanarity();
 
 
-// Graph graph2=new Graph();
-// graph2.GenerateGraph(10);
-// Console.WriteLine(graph2);
-// Console.WriteLine($"edges: {graph2.CountEdges()}");
+Graph graph2=new Graph();
+graph2.GenerateGraph(10);
+Console.WriteLine(graph2);
+Console.WriteLine($"edges: {graph2.CountEdges()}");
+
+Graph graph3=new Graph(20,0.6);
+Console.WriteLine(graph3);

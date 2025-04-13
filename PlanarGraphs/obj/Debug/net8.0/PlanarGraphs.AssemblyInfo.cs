@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlanarGraphs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+edcf545baeb74831484b46616330e06f90caaed4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ebcc871ac9cbf8f5ec10944e924dd15b90c9597")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlanarGraphs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlanarGraphs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
