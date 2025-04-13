@@ -13,4 +13,10 @@ public class Utilites
         foreach (var vertex in what) 
             dic[vertex] = value;
     }
+    
+    public static void FillDictionary(Dictionary<int, int> dic, List<int> what, int value)
+    {
+        foreach (var vertex in what) 
+            dic[vertex] = value;
+    }
 }

@@ -21,14 +21,6 @@ public class PlanaryTester
         _adjacencyList = graph.AdjacencyList;
         _allVertex = new HashSet<int>(_adjacencyList.Keys);
         _vertexCount = graph.VertexCount;
-        _dfsTree = new ();
-        _low = new ();
-        _parent = new ();
-        _embedding = new ();
-        _stack = new ();
-        _visited = new ();
-        _conflict = false;
-        _dfsIndex = 0;
     }
 
     public bool BoyerMyrvoldPlanarity()
@@ -45,19 +37,18 @@ public class PlanaryTester
     private List<List<int>> GetConnectedComponents()
     {
         List<List<int>> components = new();
-        Dictionary<int, bool> visited = new ();
+        Dictionary<int, bool> visited = new();
         Utilites.FillDictionary(visited, _allVertex, false);
-        foreach(int v in _allVertex)
+        foreach (int v in _allVertex)
         {
             if (!visited[v])
             {
-                List<int> component = new ();
+                List<int> component = new();
                 Component(v, visited, component);
                 components.Add(component);
             }
         }
         return components;
-
     }
 
     private void Component(int v, Dictionary<int, bool> visited, List<int> component)
@@ -71,11 +62,19 @@ public class PlanaryTester
 
     private bool IsPlanar(List<int> vertices)
     {
-        Utilites.FillDictionary(_dfsTree, _allVertex, -1);
-        Utilites.FillDictionary(_low, _allVertex, -1);
-        Utilites.FillDictionary(_parent, _allVertex, -1);
+        _dfsTree = new();
+        _low = new();
+        _parent = new();
+        _embedding = new();
+        _stack = new();
+        _visited = new();
+        _conflict = false;
+        _dfsIndex = 0;
+        Utilites.FillDictionary(_dfsTree, vertices, -1);
+        Utilites.FillDictionary(_low, vertices, -1);
+        Utilites.FillDictionary(_parent, vertices, -1);
 
-        foreach (var v in _allVertex)
+        foreach (var v in vertices)
             _embedding[v] = new List<(int, int)>();
         foreach (var v in vertices)
         {
@@ -83,10 +82,15 @@ public class PlanaryTester
                 DFS(v);
         }
         _visited.Clear();
-        var postOrder = _adjacencyList.Keys
-            .Where(v => _dfsTree[v] != -1)
-            .OrderByDescending(v => _dfsTree[v])
-            .ToList();
+        var postOrder = vertices.OrderByDescending(v => _dfsTree[v]).ToList();
+        foreach (var VARIABLE in _dfsTree)
+        {
+            Console.WriteLine($"v:{VARIABLE.Key} tree {VARIABLE.Value}");
+        }
+        foreach (var VARIABLE in _low)
+        {
+            Console.WriteLine($"v:{VARIABLE.Key} low {VARIABLE.Value}");
+        }
 
         foreach (var v in postOrder)
         {
@@ -101,7 +105,7 @@ public class PlanaryTester
     private void DFS(int v)
     {
         _dfsTree[v] = _dfsIndex;
-        _low[v] = _parent[v];
+        _low[v] = _dfsIndex;
         _dfsIndex++;
 
         foreach (var w in _adjacencyList[v])
@@ -110,93 +114,68 @@ public class PlanaryTester
             if (!_visited.Contains(edge))
             {
                 _visited.Add(edge);
-                if (_dfsTree[w] == -1) 
+                if (_dfsTree[w] == -1)
                 {
                     _parent[w] = v;
                     DFS(w);
-                    _low[v] = _low[v] == -1? -1 :_dfsTree[_low[v]] > _dfsTree[w] ? w : _low[v];
+                    _low[v] = Math.Min(_low[v], _low[w]);
                 }
-                else _low[v] = _dfsTree[_low[v]] > _dfsTree[w] ? w : _low[v] ;
-                
+                else if(w != _parent[v])
+                {
+                    _low[v] = Math.Min(_low[v], _dfsTree[w]);
+                }
             }
         }
     }
-    private void Embed(int v)
+
+    public void Embed(int v)
     {
         if (_conflict) return;
 
-        _embedding[v].Clear();
-        var pertinent = new List<(int w, int value)>();
+        var pertinent = new List<Tuple<int, int>>();
 
-        // Collect pertinent edges: children and back edges
         foreach (var w in _adjacencyList[v])
         {
-            if (_parent[w] == v) // Tree edge to child
+            if (_parent[w] == v)
             {
-                pertinent.Add((w, _low[w]));
+                pertinent.Add(Tuple.Create(w, _low[w]));
             }
-            else if (_dfsTree[w] < _dfsTree[v] && w != _parent[v]) // Back edge to ancestor
+            else if (_dfsTree[w] < _dfsTree[v] && w != _parent[v])
             {
-                pertinent.Add((w, _dfsTree[w]));
+                pertinent.Add(Tuple.Create(w, _dfsTree[w]));
             }
         }
 
-        // Sort by value (low or dfn) in ascending order
-        pertinent.Sort((a, b) => a.value.CompareTo(b.value));
+        pertinent.Sort((a, b) => a.Item2.CompareTo(b.Item2));
 
-        // Process pertinent edges
-        while (pertinent.Any() && !_conflict)
+        for (int i = 0; i < pertinent.Count && !_conflict; i++)
         {
-            var (w, value) = pertinent[pertinent.Count - 1];
-            pertinent.RemoveAt(pertinent.Count - 1);
-
-            if (value < _dfsTree[v]) // External (back edge)
+            var (w, value) = pertinent[i];
+            if (value < _dfsTree[v])
             {
                 _stack.Push((v, w));
-                _embedding[v].Add((v, w));
             }
-            else // Internal (child subtree)
+            else
             {
-                // Merge external edges from stack
                 while (_stack.Any())
                 {
                     var (x, y) = _stack.Peek();
                     if (_dfsTree[y] >= _dfsTree[v])
                         break;
                     _stack.Pop();
-                    // Simplified conflict check: detect interleaved back edges
+
                     if (_stack.Any())
                     {
                         var (x2, y2) = _stack.Peek();
-                        if (y2 < _dfsTree[v] && y < y2)
+                        if (_dfsTree[y2] < _dfsTree[v] && _dfsTree[y] < _dfsTree[y2])
                         {
                             _conflict = true;
+                            Console.WriteLine("Conflict found, graph is not planar.");
                             return;
                         }
                     }
                 }
-                _embedding[v].Add((v, w));
-            }
-        }
-
-        // Final conflict check on remaining stack edges
-        if (_stack.Any())
-        {
-            var prevY = -1;
-            foreach (var (x, y) in _stack)
-            {
-                if (y < _dfsTree[v])
-                {
-                    if (prevY != -1 && y < prevY)
-                    {
-                        _conflict = true;
-                        return;
-                    }
-                    prevY = y;
-                }
             }
         }
     }
-    
-    
 }

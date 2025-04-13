@@ -25,15 +25,15 @@ Graph graph=new Graph();
 // graph.AddEdge(4, 5);
 
 // Граф K_{3,3}
-graph.AddEdge(1, 4);
-graph.AddEdge(1, 5);
-graph.AddEdge(1, 6);
-graph.AddEdge(2, 4);
-graph.AddEdge(2, 5);
-graph.AddEdge(2, 6);
-graph.AddEdge(3, 4);
-graph.AddEdge(3, 5);
-graph.AddEdge(3, 6);
+// graph.AddEdge(1, 4);
+// graph.AddEdge(1, 5);
+// graph.AddEdge(1, 6);
+// graph.AddEdge(2, 4);
+// graph.AddEdge(2, 5);
+// graph.AddEdge(2, 6);
+// graph.AddEdge(3, 4);
+// graph.AddEdge(3, 5);
+// graph.AddEdge(3, 6);
 
 
 var vertexes = graph.GetVertices();
