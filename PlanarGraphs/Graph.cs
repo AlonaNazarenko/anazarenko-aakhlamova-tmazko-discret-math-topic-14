@@ -39,12 +39,22 @@ public class Graph
 
         }
         AdjacencyList = AdjacencyList.OrderBy(v => v.Key).ToDictionary();
-
+        GenerateMatrixFromList();
     }
 
-    public void GenerateMatrixFromList(int vCount)
+    public void GenerateMatrixFromList()
     {
-        
+
+        foreach (var pair in AdjacencyList)
+        {
+            int startV = pair.Key;
+            foreach (int endV in pair.Value)
+            {
+                Matrix[startV-1, endV-1] = 1;
+                Matrix[endV-1, startV-1] = 1;
+            }
+        }
+
     }
     public void AddEdge(int startV, int endV)
     {
@@ -122,7 +132,7 @@ public class Graph
                 if (i == j || matrix[i, j] == 1) continue;
 
 
-                if (rand.NextDouble() < 0.3) //probability 0.3 
+                if (rand.NextDouble() < 0.3) 
                 {
                     matrix[i, j] = 1;
                     matrix[j, i] = 1;
